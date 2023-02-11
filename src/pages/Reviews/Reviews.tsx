@@ -4,6 +4,7 @@ import ArticlesListItem from 'components/Articles/ArticlesListItem'
 import './Reviews.scss'
 
 type ArticlesProps = {
+    id: number
     category: string
     title: string
     author: string
@@ -11,8 +12,8 @@ type ArticlesProps = {
     image: string
 }
 
-type Props = {}
-const Reviews = (props: Props) => {
+
+const Reviews = () => {
     return (
         <>
             <h1 className="reviews-header">
@@ -32,6 +33,7 @@ const Reviews = (props: Props) => {
                         )
                         .map(
                             ({
+                                id,
                                 category,
                                 title,
                                 author,
@@ -40,6 +42,7 @@ const Reviews = (props: Props) => {
                             }: ArticlesProps) => (
                                 <Grid item xs={12} sm={6} lg={4}>
                                     <ArticlesListItem
+                                        id={id}
                                         category={category}
                                         title={title}
                                         author={author}

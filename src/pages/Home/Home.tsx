@@ -1,8 +1,8 @@
 import ArticlesList from 'components/Articles/ArticlesList'
 import Slider from 'components/Swiper/Slider'
 
-type Props = {}
-const Home = (props: Props) => {
+
+const Home = () => {
     return (
         <>
             <Slider />

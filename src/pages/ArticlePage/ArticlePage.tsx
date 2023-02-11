@@ -1,29 +1,17 @@
-import articlesArray from '../../components/Articles/articlesArray'
+import './ArticlePage.scss'
+import ArticlePageContent from 'components/ArticlePageContent/ArticlePageContent'
+import Comments from 'components/Comments/Comments'
 
-type ArticlesProps = {
-    category: string
-    title: string
-    author: string
-    summary: string
-    image: string
-    articleText: string
-}
-
-const ArticlePage = ({
-    category,
-    title,
-    author,
-    image,
-    articleText,
-}: ArticlesProps) => {
+const ArticlePage = () => {
     return (
-        <div>
-            <img src={image} alt="img" />
-            <p>{category}</p>
-            <p>{author}</p>
-            <h1 className='article-title'>{title}</h1>
-            <div>{articleText}</div>
-        </div>
+        <>
+            <div className='article-page-content'>
+                <ArticlePageContent />
+            </div>
+            <div className='article-page-comment'>
+                <Comments />
+            </div>
+        </>
     )
 }
 export default ArticlePage

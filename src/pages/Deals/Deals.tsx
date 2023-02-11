@@ -1,9 +1,10 @@
 import Grid from '@mui/material/Grid'
 import articlesArray from 'components/Articles/articlesArray'
 import ArticlesListItem from 'components/Articles/ArticlesListItem'
-import './Cardeals.scss'
+import './Deals.scss'
 
 type ArticlesProps = {
+    id: number
     category: string
     title: string
     author: string
@@ -11,12 +12,12 @@ type ArticlesProps = {
     image: string
 }
 
-type Props = {}
-const Cardeals = (props: Props) => {
+
+const Deals = () => {
     return (
         <>
-            <h1 className="cardeals-header">
-                CATEGORY: <span className="category-name">CAR DEALS</span>
+            <h1 className="deals-header">
+                CATEGORY: <span className="category-name">DEALS</span>
             </h1>
             <div className="article-list">
                 <Grid
@@ -28,10 +29,11 @@ const Cardeals = (props: Props) => {
                     {articlesArray
                         .filter(
                             ({ category }: ArticlesProps) =>
-                                category === 'Car Deals'
+                                category === 'Deals'
                         )
                         .map(
                             ({
+                                id,
                                 category,
                                 title,
                                 author,
@@ -40,6 +42,7 @@ const Cardeals = (props: Props) => {
                             }: ArticlesProps) => (
                                 <Grid item xs={12} sm={6} lg={4}>
                                     <ArticlesListItem
+                                        id={id}
                                         category={category}
                                         title={title}
                                         author={author}
@@ -54,4 +57,4 @@ const Cardeals = (props: Props) => {
         </>
     )
 }
-export default Cardeals
+export default Deals

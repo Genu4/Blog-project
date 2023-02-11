@@ -1,9 +1,18 @@
-import { Card, CardContent } from '@mui/material'
+import './ArticlesListItem.scss'
+import { Button, Card, CardContent } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import './ArticlesListItem.scss'
+import { Link } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { addLike, removeLike } from 'redux/likeReducer'
+import {
+    addArticleToFavorites,
+    removeArticleFromFavorites,
+} from 'redux/favoriteArticleReducer'
+import Socials from 'components/Socials/Socials'
 
 type Props = {
+    id: number
     category: string
     title: string
     author: string
@@ -11,43 +20,63 @@ type Props = {
     image: string
 }
 const ArticlesListItem = ({
+    id,
     category,
     title,
     author,
     summary,
     image,
 }: Props) => {
+    const isLiked = useAppSelector((state) => state.likeArticles[id])
+
+    const dispatch = useAppDispatch()
+    
     return (
         <Card className="article-card-item">
             <CardContent>
                 <div className="article-card-img">
-                    <a href="/some/valid/uri">
-                        <img src={image} alt="" />
-                    </a>
+                    <img src={image} alt="car-img" />
                 </div>
                 <div className="article-card-category-block">
-                    <a href="/some/valid/uri" className="article-card-category">
+                    <Link className="article-card-category" to={`/${category}`}>
                         {category}
-                    </a>
+                    </Link>
                 </div>
-
                 <h2 className="article-card-title">
-                    <a href="/some/valid/uri">{title}</a>
+                    <Link
+                        className="article-card-title-text"
+                        to={`/article/${id}`}
+                    >
+                        {title}
+                    </Link>
                 </h2>
                 <div className="article-autor-date">{author}</div>
                 <p className="article-short-content">{summary}</p>
                 <div className="read-more-btn">
-                    <a className="read-more-btn-link" href="/some/valid/uri">
+                    <Link to={`/article/${id}`} className="read-more-btn-link">
                         Read the article
-                    </a>
+                    </Link>
                 </div>
                 <div className="article-card-socials">
                     <div className="article-card-socials-block">
-                        <button className="article-card-likes"><FavoriteBorderIcon className='like'/></button>
-                        <a href="/"><button className="article-card-facebook"></button></a>
-                        <a href="/"><button className="article-card-twitter"></button></a>
-                        <a href="/"><button className="article-card-pinterest"></button></a>
-                        <a href="/"><button className="article-card-email"></button></a>
+                        <Button
+                            onClick={() => {
+                                isLiked
+                                    ? dispatch(removeLike(id))
+                                    : dispatch(addLike(id))
+                                isLiked
+                                    ? dispatch(removeArticleFromFavorites(id))
+                                    : dispatch(addArticleToFavorites({ id }))
+                            }}
+                            className="article-card-likes"
+                        >
+                            {isLiked ? (
+                                <FavoriteIcon />
+                            ) : (
+                                <FavoriteBorderIcon />
+                            )}
+                        </Button>
+                        <Socials />
                     </div>
                 </div>
             </CardContent>
